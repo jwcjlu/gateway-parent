@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jwcjlu.gateway.admin.mapper.RuleMapper" >
+  <resultMap id="BaseResultMap" type="com.jwcjlu.gateway.api.entity.Rule" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="rule_name" property="ruleName" jdbcType="VARCHAR" />
+    <result column="plugin_id" property="pluginId" jdbcType="BIGINT" />
+    <result column="handler" property="handler" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="time_updated" property="timeUpdated" jdbcType="TIMESTAMP" />
+    <result column="time_created" property="timeCreated" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, rule_name, plugin_id, handler, user_id, time_updated, time_created
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.jwcjlu.gateway.api.entity.RuleExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from rule
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from rule
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from rule
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.jwcjlu.gateway.api.entity.RuleExample" >
+    delete from rule
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.jwcjlu.gateway.api.entity.Rule" >
+    insert into rule (id, rule_name, plugin_id, 
+      handler, user_id, time_updated, 
+      time_created)
+    values (#{id,jdbcType=BIGINT}, #{ruleName,jdbcType=VARCHAR}, #{pluginId,jdbcType=BIGINT}, 
+      #{handler,jdbcType=VARCHAR}, #{userId,jdbcType=BIGINT}, #{timeUpdated,jdbcType=TIMESTAMP}, 
+      #{timeCreated,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jwcjlu.gateway.api.entity.Rule"  useGeneratedKeys="true" keyProperty="id" >
+    insert into rule
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="ruleName != null" >
+        rule_name,
+      </if>
+      <if test="pluginId != null" >
+        plugin_id,
+      </if>
+      <if test="handler != null" >
+        handler,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="timeUpdated != null" >
+        time_updated,
+      </if>
+      <if test="timeCreated != null" >
+        time_created,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="ruleName != null" >
+        #{ruleName,jdbcType=VARCHAR},
+      </if>
+      <if test="pluginId != null" >
+        #{pluginId,jdbcType=BIGINT},
+      </if>
+      <if test="handler != null" >
+        #{handler,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="timeUpdated != null" >
+        #{timeUpdated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="timeCreated != null" >
+        #{timeCreated,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.jwcjlu.gateway.api.entity.RuleExample" resultType="java.lang.Integer" >
+    select count(*) from rule
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update rule
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.ruleName != null" >
+        rule_name = #{record.ruleName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pluginId != null" >
+        plugin_id = #{record.pluginId,jdbcType=BIGINT},
+      </if>
+      <if test="record.handler != null" >
+        handler = #{record.handler,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=BIGINT},
+      </if>
+      <if test="record.timeUpdated != null" >
+        time_updated = #{record.timeUpdated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.timeCreated != null" >
+        time_created = #{record.timeCreated,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update rule
+    set id = #{record.id,jdbcType=BIGINT},
+      rule_name = #{record.ruleName,jdbcType=VARCHAR},
+      plugin_id = #{record.pluginId,jdbcType=BIGINT},
+      handler = #{record.handler,jdbcType=VARCHAR},
+      user_id = #{record.userId,jdbcType=BIGINT},
+      time_updated = #{record.timeUpdated,jdbcType=TIMESTAMP},
+      time_created = #{record.timeCreated,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jwcjlu.gateway.api.entity.Rule" >
+    update rule
+    <set >
+      <if test="ruleName != null" >
+        rule_name = #{ruleName,jdbcType=VARCHAR},
+      </if>
+      <if test="pluginId != null" >
+        plugin_id = #{pluginId,jdbcType=BIGINT},
+      </if>
+      <if test="handler != null" >
+        handler = #{handler,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="timeUpdated != null" >
+        time_updated = #{timeUpdated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="timeCreated != null" >
+        time_created = #{timeCreated,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jwcjlu.gateway.api.entity.Rule" >
+    update rule
+    set rule_name = #{ruleName,jdbcType=VARCHAR},
+      plugin_id = #{pluginId,jdbcType=BIGINT},
+      handler = #{handler,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=BIGINT},
+      time_updated = #{timeUpdated,jdbcType=TIMESTAMP},
+      time_created = #{timeCreated,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select resultMap="BaseResultMap" parameterType="com.jwcjlu.gateway.api.entity.RuleExample" id="selectByExampleWithRowbounds" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from rule
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+</mapper>

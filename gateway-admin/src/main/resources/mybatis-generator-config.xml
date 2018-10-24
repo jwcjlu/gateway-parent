@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+    <context id="prod">
+        <!-- RowBounds pagination -->
+        <plugin type="org.mybatis.generator.plugins.RowBoundsPlugin" />
+        <plugin type="org.mybatis.generator.plugins.CaseInsensitiveLikePlugin" />
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin" />
+
+        <commentGenerator>
+            <property name="suppressDate" value="true" />
+            <property name="suppressAllComments" value="true" />
+        </commentGenerator>
+
+        <!-- jdbc连接 -->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://10.4.4.202:3306/gateway" userId="root"
+                        password="123123" />
+
+        <javaModelGenerator targetPackage="com.jwcjlu.gateway.api.entity"
+                            targetProject="F:\newProject1\gateway-parent\gateway-parent\gateway-api\src\main\java">
+            <!-- 是否针对string类型的字段在set的时候进行trim调用 -->
+            <property name="trimStrings" value="true" />
+        </javaModelGenerator>
+        <sqlMapGenerator targetPackage="src.main.resources.mappers" targetProject="F:\newProject1\gateway-parent\gateway-parent\gateway-admin\" />
+        <javaClientGenerator targetPackage="com.jwcjlu.gateway.admin.mapper"
+                             targetProject="F:\newProject1\gateway-parent\gateway-parent\gateway-admin\src\main\java" type="XMLMAPPER" />
+
+        <table tableName="service_rule" domainObjectName="ServiceRule">
+
+        </table>
+
+    </context>
+</generatorConfiguration>

@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jwcjlu.gateway.admin.mapper.AppPluginMapper" >
+  <resultMap id="BaseResultMap" type="com.jwcjlu.gateway.api.entity.AppPlugin" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="app_id" property="appId" jdbcType="BIGINT" />
+    <result column="plugin_id" property="pluginId" jdbcType="BIGINT" />
+    <result column="time_updated" property="timeUpdated" jdbcType="TIMESTAMP" />
+    <result column="time_created" property="timeCreated" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, app_id, plugin_id, time_updated, time_created
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.jwcjlu.gateway.api.entity.AppPluginExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from app_plugin
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from app_plugin
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from app_plugin
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.jwcjlu.gateway.api.entity.AppPluginExample" >
+    delete from app_plugin
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.jwcjlu.gateway.api.entity.AppPlugin" >
+    insert into app_plugin (id, app_id, plugin_id, 
+      time_updated, time_created)
+    values (#{id,jdbcType=BIGINT}, #{appId,jdbcType=BIGINT}, #{pluginId,jdbcType=BIGINT}, 
+      #{timeUpdated,jdbcType=TIMESTAMP}, #{timeCreated,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jwcjlu.gateway.api.entity.AppPlugin" >
+    insert into app_plugin
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="appId != null" >
+        app_id,
+      </if>
+      <if test="pluginId != null" >
+        plugin_id,
+      </if>
+      <if test="timeUpdated != null" >
+        time_updated,
+      </if>
+      <if test="timeCreated != null" >
+        time_created,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="appId != null" >
+        #{appId,jdbcType=BIGINT},
+      </if>
+      <if test="pluginId != null" >
+        #{pluginId,jdbcType=BIGINT},
+      </if>
+      <if test="timeUpdated != null" >
+        #{timeUpdated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="timeCreated != null" >
+        #{timeCreated,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.jwcjlu.gateway.api.entity.AppPluginExample" resultType="java.lang.Integer" >
+    select count(*) from app_plugin
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update app_plugin
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.appId != null" >
+        app_id = #{record.appId,jdbcType=BIGINT},
+      </if>
+      <if test="record.pluginId != null" >
+        plugin_id = #{record.pluginId,jdbcType=BIGINT},
+      </if>
+      <if test="record.timeUpdated != null" >
+        time_updated = #{record.timeUpdated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.timeCreated != null" >
+        time_created = #{record.timeCreated,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update app_plugin
+    set id = #{record.id,jdbcType=BIGINT},
+      app_id = #{record.appId,jdbcType=BIGINT},
+      plugin_id = #{record.pluginId,jdbcType=BIGINT},
+      time_updated = #{record.timeUpdated,jdbcType=TIMESTAMP},
+      time_created = #{record.timeCreated,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jwcjlu.gateway.api.entity.AppPlugin" >
+    update app_plugin
+    <set >
+      <if test="appId != null" >
+        app_id = #{appId,jdbcType=BIGINT},
+      </if>
+      <if test="pluginId != null" >
+        plugin_id = #{pluginId,jdbcType=BIGINT},
+      </if>
+      <if test="timeUpdated != null" >
+        time_updated = #{timeUpdated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="timeCreated != null" >
+        time_created = #{timeCreated,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jwcjlu.gateway.api.entity.AppPlugin" >
+    update app_plugin
+    set app_id = #{appId,jdbcType=BIGINT},
+      plugin_id = #{pluginId,jdbcType=BIGINT},
+      time_updated = #{timeUpdated,jdbcType=TIMESTAMP},
+      time_created = #{timeCreated,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select resultMap="BaseResultMap" parameterType="com.jwcjlu.gateway.api.entity.AppPluginExample" id="selectByExampleWithRowbounds" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from app_plugin
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+</mapper>

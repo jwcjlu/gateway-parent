@@ -1,0 +1,4 @@
+com.jwcjlu.gateway.configuration.zookeeper.serializer.KryoSerializer
+com.jwcjlu.gateway.configuration.zookeeper.serializer.HessianSerializer
+com.jwcjlu.gateway.configuration.zookeeper.serializer.ProtostuffSerializer
+com.jwcjlu.gateway.configuration.zookeeper.serializer.JavaSerializer
